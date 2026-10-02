@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Английский с Александром Хлебодаровым</title>
+<meta name="description" content="Индивидуальные и групповые занятия английским, разговорный клуб и телеграм-канал.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  /* ============================================================
+     РЕДАКТИРУЕМЫЕ ДАННЫЕ САЙТА
+     Меняйте текст прямо здесь и в разделе <script> внизу файла
+     (там же список видео для разговорного клуба).
+     ============================================================ */
+
+  :root{
+    --bg: #0e0e0e;
+    --bg-alt: #232323;
+    --card: #181818;
+    --ink: #f2f2f2;
+    --ink-soft: #b9b9b9;
+    --line: rgba(255,255,255,.14);
+    --accent: #ffcc00;
+    --accent-ink: #000000;
+    --accent-soft: rgba(255,204,0,.14);
+    --teal: #ffcc00;
+    --teal-soft: rgba(255,204,0,.12);
+    --radius: 0px;
+    --shadow: none;
+    --head: "Oswald", "Manrope", Impact, sans-serif;
+    --maxw: 1040px;
+    --maxw-header: 1240px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%; display:block;}
+  a{color:inherit;}
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 20px;}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,248,244,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .site-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:14px 20px;
+    max-width:var(--maxw-header); margin:0 auto;
+    gap:16px;
+  }
+  .brand{
+    display:flex; align-items:center; gap:10px;
+    font-weight:800; font-size:1.05rem; letter-spacing:.2px;
+    text-decoration:none;
+    white-space:nowrap;
+    flex:0 0 auto;
+  }
+  .brand .dot{
+    width:10px; height:10px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 0 4px var(--accent-soft);
+  }
+
+  nav.tabs{
+    display:flex; gap:4px;
+    overflow-x:auto;
+    scrollbar-width:none;
+  }
+  nav.tabs::-webkit-scrollbar{display:none;}
+  nav.tabs button{
+    all:unset;
+    cursor:pointer;
+    white-space:nowrap;
+    padding:8px 12px;
+    border-radius:999px;
+    font-weight:600;
+    font-size:.86rem;
+    color:var(--ink-soft);
+    transition:background .15s, color .15s;
+  }
+  nav.tabs button:hover{ background:var(--bg-alt); color:var(--ink); }
+  nav.tabs button.active{ background:var(--accent); color:var(--accent-ink); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:56px 20px 40px;
+  }
+  .hero-inner{
+    max-width:var(--maxw); margin:0 auto;
+    display:grid; grid-template-columns:1.3fr 1fr; gap:40px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-size:.82rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--teal);
+    background:var(--teal-soft);
+    padding:5px 12px; border-radius:999px;
+    margin-bottom:16px;
+  }
+  h1{
+    font-size:clamp(1.9rem, 4vw, 2.8rem);
+    line-height:1.12;
+    margin:0 0 14px;
+    font-weight:800;
+    letter-spacing:-.01em;
+  }
+  .hero p.lead{
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:52ch;
+    margin:0 0 26px;
+  }
+  .cta-row{ display:flex; gap:12px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 20px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:.95rem;
+    text-decoration:none;
+    border:1px solid transparent;
+    cursor:pointer;
+    transition:transform .12s ease, box-shadow .12s ease, background .15s;
+  }
+  .btn:active{ transform:scale(.97); }
+  .btn-primary{ background:var(--accent); color:var(--accent-ink); box-shadow:0 8px 18px -8px rgba(196,98,45,.6); }
+  .btn-primary:hover{ background:#ad5423; }
+  .btn-ghost{ background:var(--card); color:var(--ink); border-color:var(--line); }
+  .btn-ghost:hover{ border-color:var(--accent); }
+
+  .hero-photo{
+    aspect-ratio:1/1;
+    border-radius:24px;
+    background:linear-gradient(150deg, var(--teal-soft), var(--accent-soft));
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line);
+    overflow:hidden;
+    color:var(--ink-soft);
+    font-size:.9rem;
+    text-align:center;
+    padding:20px;
+  }
+  .hero-inner.no-photo{ grid-template-columns:1fr; }
+  .hero-photo:has(img){ padding:0; }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; }
+
+  /* ---------- sections ---------- */
+  section.panel{ display:none; padding:10px 20px 80px; }
+  section.panel.active{ display:block; animation:fade .25s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:none;} }
+
+  .panel-inner{ max-width:var(--maxw); margin:0 auto; }
+
+  h2.section-title{
+    font-size:clamp(1.5rem,3vw,2rem);
+    margin:0 0 8px;
+    font-weight:800;
+  }
+  p.section-sub{
+    color:var(--ink-soft);
+    max-width:60ch;
+    margin:0 0 34px;
+    font-size:1.02rem;
+  }
+
+  .card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px;
+  }
+
+  .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .grid-3{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+
+  .stack{ display:flex; flex-direction:column; gap:22px; }
+
+  .list-check{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;}
+  .list-check li{ display:flex; gap:10px; align-items:flex-start; color:var(--ink-soft); }
+  .list-check li::before{
+    content:"";
+    flex:0 0 auto;
+    width:18px; height:18px; margin-top:3px;
+    border-radius:6px;
+    background:var(--teal-soft);
+    background-image: linear-gradient(var(--teal), var(--teal));
+    background-size: 10px 10px;
+    background-repeat:no-repeat;
+    background-position:center;
+    -webkit-mask: none;
+  }
+
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; margin:0 0 18px; }
+  .tag{
+    font-size:.8rem; font-weight:700;
+    padding:5px 11px; border-radius:999px;
+    background:var(--bg-alt); color:var(--ink-soft);
+  }
+
+  .price-note{
+    display:flex; align-items:center; gap:12px;
+    background:var(--teal-soft);
+    border-radius:14px;
+    padding:16px 18px;
+    color:var(--teal);
+    font-weight:600;
+    font-size:.95rem;
+  }
+
+  .quote{
+    border-left:3px solid var(--accent);
+    padding:4px 0 4px 18px;
+    color:var(--ink-soft);
+    font-style:italic;
+  }
+
+  .callout{
+    background:var(--accent-soft);
+    border-radius:14px;
+    padding:16px 18px;
+    color:var(--accent);
+    font-weight:700;
+    line-height:1.5;
+  }
+
+  .reviews-head{ margin:34px 0 6px; font-size:1.25rem; font-weight:800; }
+  .reviews-note{ margin:0 0 16px; color:var(--ink-soft); font-size:.88rem; }
+  .vibe-row{ display:flex; flex-wrap:wrap; gap:8px; margin:0 0 18px; }
+  .vibe{
+    background:var(--accent-soft); color:var(--accent);
+    font-weight:700; font-size:.85rem;
+    padding:6px 13px; border-radius:999px;
+  }
+  .reviews-grid{
+    columns:2 300px; column-gap:18px;
+  }
+  .review-card{
+    break-inside:avoid;
+    display:inline-block; width:100%;
+    margin:0 0 18px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:20px 22px;
+  }
+  .review-card .rq{
+    margin:0 0 8px;
+    font-size:.74rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+    color:var(--teal);
+  }
+  .review-card .rt{ margin:0 0 12px; color:var(--ink); line-height:1.55; }
+  .review-card .rw{ margin:0; font-size:.82rem; color:var(--ink-soft); }
+  .review-card::before{
+    content:"\201C"; display:block;
+    font-size:2.4rem; line-height:.7; color:var(--accent); font-weight:800;
+    margin-bottom:6px;
+  }
+
+  .review-link{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    text-decoration:none;
+    color:var(--ink);
+    background:var(--bg-alt);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px 16px;
+    transition:border-color .15s, background .15s, transform .12s;
+  }
+  .review-link:hover{
+    border-color:var(--accent);
+    background:var(--accent-soft);
+  }
+  .review-link:active{ transform:scale(.98); }
+  .review-icon{
+    flex:0 0 auto;
+    width:36px; height:36px;
+    border-radius:10px;
+    background:var(--card);
+    display:flex; align-items:center; justify-content:center;
+    font-size:1.05rem;
+  }
+  .review-text{ flex:1 1 auto; display:flex; flex-direction:column; gap:2px; min-width:0; }
+  .review-text b{ font-size:.94rem; font-weight:700; }
+  .review-text em{ font-style:normal; font-size:.8rem; color:var(--ink-soft); }
+  .review-arrow{ flex:0 0 auto; font-weight:700; color:var(--accent); }
+
+  /* telegram demo post */
+  .tg-demo{
+    max-width:540px;
+    display:flex; flex-direction:column; gap:12px;
+  }
+  .tg-msg{
+    background:var(--card);
+    border-radius:16px;
+    padding:6px;
+    box-shadow:0 1px 2px rgba(35,33,29,.08);
+    overflow:hidden;
+  }
+  .tg-msg img, .tg-msg video{ width:100%; display:block; border-radius:12px; background:#000; }
+  .tg-cap{ margin:8px 10px 6px; font-size:.95rem; }
+  .tg-post{ margin:8px 10px 12px; font-size:.95rem; white-space:pre-line; }
+  .tg-poll{ padding:14px 14px 12px; }
+  .poll-title{ margin:0; font-weight:800; }
+  .poll-type{ margin:2px 0 12px; font-size:.8rem; color:var(--ink-soft); }
+  .poll-options{ display:flex; flex-direction:column; gap:8px; }
+  .poll-opt{
+    -webkit-appearance:none; appearance:none;
+    box-sizing:border-box; width:100%; margin:0; cursor:pointer;
+    position:relative; overflow:hidden;
+    display:flex; align-items:flex-start; gap:10px; text-align:left;
+    padding:10px 12px; border-radius:12px;
+    border:1px solid var(--line); background:var(--card);
+    font:inherit; font-size:.92rem; line-height:1.35; color:var(--ink);
+    transition:border-color .15s, background .15s;
+  }
+  .poll-opt *{ pointer-events:none; }
+  .poll-opt:hover{ border-color:var(--accent); }
+  .poll-opt:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+  .poll-opt .bar{
+    position:absolute; inset:0 auto 0 0; width:0;
+    background:var(--bg-alt); transition:width .6s ease; z-index:0;
+  }
+  .poll-opt > span{ position:relative; z-index:1; }
+  .poll-opt .pct{ min-width:2.6em; font-weight:800; display:none; }
+  .poll-opt .mark{ margin-left:auto; display:none; }
+  .poll-opt .txt{ flex:1 1 auto; }
+  .poll-done .poll-opt{ cursor:default; }
+  .poll-done .poll-opt:hover{ border-color:var(--line); }
+  .poll-done .poll-opt .pct, .poll-done .poll-opt .mark{ display:inline; }
+  .poll-opt.correct{ border-color:#3f9a5b; }
+  .poll-opt.correct .bar{ background:#d9efdf; }
+  .poll-opt.wrong{ border-color:#c8493b; }
+  .poll-opt.wrong .bar{ background:#f6dcd8; }
+  .poll-result{ margin:12px 2px 0; font-weight:700; font-size:.95rem; }
+  .poll-result.ok{ color:#2e7d49; }
+  .poll-result.no{ color:#b23b2e; }
+  .tg-demo-foot{ display:flex; flex-wrap:wrap; gap:10px; margin-top:12px; }
+
+  .tg-layout{ display:grid; grid-template-columns:minmax(0,540px) 1fr; gap:28px; align-items:start; }
+  .tg-layout .reviews-head{ margin-top:0; }
+  .tg-side{ position:sticky; top:86px; display:flex; flex-direction:column; gap:26px; }
+  .tg-stat b{ display:block; font-size:2.6rem; line-height:1; font-weight:800; color:var(--accent); }
+  .tg-stat span{ color:var(--ink-soft); font-size:.95rem; }
+  .tg-facts{ display:flex; flex-direction:column; gap:18px; padding:0 4px; }
+  .tg-side .tg-card{ flex-direction:column; align-items:flex-start; gap:16px; }
+  @media (max-width:860px){ .tg-layout{ grid-template-columns:1fr; } .tg-demo{ max-width:none; } .tg-side{ position:static; } }
+
+  /* telegram tab */
+  .tg-card{
+    display:flex; gap:24px; align-items:center;
+    background:linear-gradient(135deg, var(--teal), #1f4d47);
+    color:#fff;
+    border-radius:var(--radius);
+    padding:30px;
+    flex-wrap:wrap;
+  }
+  .tg-card h3{ margin:0 0 8px; font-size:1.3rem; }
+  .tg-card p{ margin:0; opacity:.9; max-width:46ch; }
+  .tg-icon{
+    width:56px; height:56px; border-radius:16px;
+    background:rgba(255,255,255,.15);
+    display:flex; align-items:center; justify-content:center;
+    flex:0 0 auto;
+  }
+
+  /* about tab bits */
+  .facts{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin:28px 0; }
+  .fact{ background:var(--bg-alt); border-radius:14px; padding:18px; text-align:center; }
+  .fact b{ display:block; font-size:1.5rem; color:var(--accent); }
+  .fact span{ font-size:.82rem; color:var(--ink-soft); }
+
+  footer.site{
+    border-top:1px solid var(--line);
+    padding:26px 20px 40px;
+    color:var(--ink-soft);
+    font-size:.88rem;
+  }
+  footer.site .wrap{ display:flex; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+
+  @media (max-width:760px){
+    .hero-inner{ grid-template-columns:1fr; }
+    .hero-photo{ order:-1; max-width:280px; margin:0 auto; }
+    .grid-2, .grid-3{ grid-template-columns:1fr; }
+    .facts{ grid-template-columns:1fr 1fr; }
+    .tg-card{ flex-direction:column; align-items:flex-start; }
+  }
+
+  /* ============================================================
+     ТЕМА «EXPEDITION»: чёрный фон, прямые углы, жёлтый акцент, заголовки
+     узким капсом. Только цвета, формы и шрифты, расположение не менялось.
+     Прежние варианты: ветки theme-soft и theme-dark, оригинал — тег v1.
+     ============================================================ */
+  html, body{ background:#0e0e0e; }
+  body{ background:#0e0e0e; }
+
+  h1, h2, h3, .eyebrow, .btn, nav.tabs button, .reviews-head, .rq, .poll-title{
+    font-family:var(--head);
+    text-transform:uppercase;
+    letter-spacing:.03em;
+  }
+  h1{ font-weight:700; line-height:1.05; color:#fff; letter-spacing:.01em; }
+  h2.section-title{
+    font-weight:600; color:#fff;
+    border-left:6px solid #ffcc00; padding-left:14px;
+  }
+  .reviews-head{ font-weight:600; color:#fff; border-left:6px solid #ffcc00; padding-left:12px; font-size:1.3rem; }
+  .card h3, .tg-msg h3{ font-weight:600; color:#fff; font-size:1.05rem; }
+
+  header.site{ background:#fff; border-bottom:none; backdrop-filter:none; }
+  header.site .brand{ color:#000; }
+  .brand .dot{ border-radius:0; width:12px; height:12px; background:#ffcc00; box-shadow:none; }
+  nav.tabs button{ color:#000; border-radius:0; font-weight:500; font-size:.9rem; }
+  nav.tabs button:hover{ background:#f0f0f0; color:#000; }
+  nav.tabs button.active{ background:#ffcc00; color:#000; box-shadow:none; }
+
+  .eyebrow{ border-radius:0; background:#ffcc00; color:#000; border:none; font-weight:600; }
+  p.section-sub, .hero p.lead{ color:#c8c8c8; }
+
+  .btn{ border-radius:0; padding:13px 24px; font-weight:600; font-size:.95rem; letter-spacing:.06em; }
+  .btn-primary{ background:#ffcc00; color:#000; box-shadow:none; }
+  .btn-primary:hover{ background:#fff; color:#000; }
+  .btn-ghost{ background:transparent; color:#fff; border:2px solid #fff; }
+  .btn-ghost:hover{ background:#fff; color:#000; border-color:#fff; }
+
+  .hero-photo{ border-radius:0; border:none; background:#232323; box-shadow:none; }
+  .hero-photo img{ border-radius:0; }
+
+  .card, .review-card, .tg-msg, .fact, .price-note, .review-link, .poll-opt, .tag, .vibe, .tg-card, .tg-icon, .review-icon{ border-radius:0; }
+  .card, .review-card, .tg-msg{ background:#181818; border:none; border-top:3px solid #333; box-shadow:none; }
+  .grid-2 > .card:nth-child(even){ background:#1f1f1f; border-top-color:#ffcc00; }
+
+  .list-check li::before{
+    width:10px; height:10px; margin-top:8px; border-radius:0;
+    background:#ffcc00;
+  }
+  .list-check li, .card p, .tg-post, .tg-cap{ color:#d6d6d6; }
+  .tag{ background:#262626; color:#e6e6e6; font-weight:600; }
+  .price-note{ background:#1b1b1b; color:#ffcc00; border:none; border-left:6px solid #ffcc00; }
+  .quote{ border-left:6px solid #ffcc00; color:#e6e6e6; }
+
+  .facts .fact{ box-shadow:none; background:#1f1f1f; border-top:3px solid #333; }
+  .facts .fact b{ font-family:var(--head); font-size:1.9rem; color:#ffcc00; }
+  .facts .fact span{ color:#c8c8c8; }
+  .facts .fact:nth-child(1){ background:#ffcc00; border-top-color:#000; }
+  .facts .fact:nth-child(1) b, .facts .fact:nth-child(1) span{ color:#000; }
+
+  .review-card::before{ color:#ffcc00; }
+  .review-card .rq{ color:#ffcc00; font-weight:500; }
+  .review-card .rt{ color:#f2f2f2; }
+  .review-card .rw{ color:#a8a8a8; }
+  .review-card:nth-child(3n+2){ background:#1f1f1f; border-top-color:#ffcc00; }
+  .review-card:nth-child(3n){
+    background:#ffcc00; border-top-color:#000;
+    --ink:#000; --ink-soft:#333; --teal:#000; --accent:#000;
+  }
+  .review-card:nth-child(3n)::before, .review-card:nth-child(3n) .rq{ color:#000; }
+  .review-card:nth-child(3n) .rt{ color:#000; }
+  .review-card:nth-child(3n) .rw{ color:#3a3000; }
+
+  .vibe{ background:transparent; color:#ffcc00; border:1.5px solid #ffcc00; font-family:var(--head); text-transform:uppercase; letter-spacing:.05em; font-weight:500; }
+  .review-link{ background:#1b1b1b; border:none; border-left:4px solid #ffcc00; color:#fff; }
+  .review-link:hover{ background:#262626; border-left-color:#fff; }
+  .review-icon{ background:#2a2a2a; }
+  .review-text em{ color:#b0b0b0; }
+  .review-arrow{ color:#ffcc00; }
+
+  .tg-msg{ padding:8px; }
+  .tg-msg img, .tg-msg video{ border-radius:0; }
+  .tg-card{ background:#ffcc00; color:#000; border:none; box-shadow:none; }
+  .tg-card h3, .tg-card p{ color:#000; }
+  .tg-card .tg-icon{ background:#000; }
+  .tg-card .btn-primary{ background:#000; color:#ffcc00; }
+  .tg-card .btn-primary:hover{ background:#fff; color:#000; }
+  .tg-stat b{ font-family:var(--head); color:#ffcc00; }
+  .poll-opt{ background:#222; color:#f2f2f2; border:1px solid #3a3a3a; }
+  .poll-opt:hover{ border-color:#ffcc00; }
+  .poll-opt .bar{ background:#333; }
+  .poll-opt.correct{ border-color:#3ddc84; }
+  .poll-opt.correct .bar{ background:rgba(61,220,132,.28); }
+  .poll-opt.wrong{ border-color:#ff5252; }
+  .poll-opt.wrong .bar{ background:rgba(255,82,82,.3); }
+  .poll-result.ok{ color:#5fe3a0; }
+  .poll-result.no{ color:#ff8a80; }
+  .poll-title{ color:#fff; font-weight:600; text-transform:none; letter-spacing:0; font-family:"Manrope",sans-serif; }
+
+  footer.site{ border-top:1px solid #2a2a2a; color:#9a9a9a; }
+  a{ text-underline-offset:3px; }
+  body.no-hero section.panel{ padding-top:44px; }
+  .shots{ display:flex; flex-direction:column; gap:18px; margin-bottom:10px; }
+  .shot{ margin:0; background:#181818; border-top:3px solid #333; padding:8px; }
+  .shot-video{ max-width:640px; }
+  .shot-row{ display:grid; grid-template-columns:repeat(3,1fr); gap:8px; align-items:start; }
+  @media (max-width:760px){ .shot-row{ grid-template-columns:1fr; } }
+  .shot img{ width:100%; display:block; cursor:zoom-in; background:#fff; }
+  .shot figcaption{ padding:10px 6px 4px; font-family:var(--head); text-transform:uppercase; letter-spacing:.04em; font-size:.95rem; color:#fff; }
+  .lightbox{ position:fixed; inset:0; z-index:200; background:rgba(0,0,0,.88); display:flex; align-items:center; justify-content:center; padding:24px; cursor:zoom-out; }
+  .lightbox[hidden]{ display:none; }
+  .lightbox img{ max-width:100%; max-height:100%; object-fit:contain; background:#fff; }
+  .bt-head{ display:flex; align-items:center; gap:22px; margin-bottom:26px; flex-wrap:wrap; }
+  .bt-head .section-title{ margin:0; }
+  .bt-head .eyebrow{ margin-bottom:12px; }
+  .bt-logo{ width:104px; height:104px; object-fit:cover; flex:0 0 auto; border-top:3px solid #ffcc00; }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="site-bar">
+    <a class="brand" href="#about" onclick="showTab('about')">
+      <span class="dot"></span>
+      <span data-cfg="name">Александр Хлебодаров</span>
+    </a>
+    <nav class="tabs" id="tabs">
+      <button data-tab="about" class="active">Обо мне</button>
+      <button data-tab="individual">Индивидуальные</button>
+      <button data-tab="groups">Групповые</button>
+      <button data-tab="club">Разговорный клуб</button>
+      <button data-tab="breadtalk">BreadTalk</button>
+      <button data-tab="telegram">Telegram</button>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">Преподаватель английского языка</span>
+      <h1>Говори так, чтобы восхищались даже носители!</h1>
+      <p class="lead" data-cfg="heroText">
+        Индивидуальные занятия, группы и разговорный клуб — выбирайте формат под свою цель и уровень.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="#" data-cfg-href="telegramContact" target="_blank" rel="noopener">Написать в Telegram</a>
+        <a class="btn btn-ghost" href="#" data-cfg-href="telegramChannel" target="_blank" rel="noopener">Открыть ТГ-канал</a>
+      </div>
+    </div>
+    <div class="hero-photo" id="heroPhoto">
+      <!-- Заполняется скриптом из HERO_IMAGES / плейсхолдер по умолчанию -->
+    </div>
+  </div>
+</div>
+
+<!-- ================= ОБО МНЕ ================= -->
+<section class="panel active" id="tab-about">
+  <div class="panel-inner">
+    <h2 class="section-title">Обо мне</h2>
+    <p class="section-sub">Немного о моём опыте и подходе к преподаванию.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="tag-row">
+          <span class="tag">Выучил сам, без курсов</span>
+          <span class="tag">3 года с носителями</span>
+          <span class="tag">IELTS 8.0</span>
+        </div>
+        <p data-cfg-html="aboutText1">
+          Привет! Меня зовут <b data-cfg="name">Александр</b>, я преподаю английский язык и помогаю
+          ученикам не просто выучить грамматику, а начать свободно говорить и понимать живую речь.
+        </p>
+        <p data-cfg-html="aboutText2">
+          Веду индивидуальные занятия под конкретные цели — от нуля до разговорного уровня,
+          подготовка к экзаменам, английский для работы. Провожу групповые занятия для тех, кому
+          важна поддержка и атмосфера общего прогресса. А ещё веду разговорный проект, где мы
+          смотрим видео на английском и разбираем живую лексику.
+        </p>
+        <blockquote class="quote" data-cfg="aboutQuote">
+          «Я не объясняю английский с чужих слов — я сам набил все шишки на этом пути и помогаю
+          другим пройти его быстрее».
+        </blockquote>
+      </div>
+
+      <div class="stack">
+        <div class="card">
+          <h3 style="margin-top:0">Как я работаю</h3>
+          <ul class="list-check">
+            <li>Подбираю форматы и материалы под цель и уровень ученика, а не беру любой попавшийся учебник</li>
+            <li>Много живой речи и практики</li>
+            <li>Регулярная обратная связь, чтобы не выпускать из фокуса ошибки</li>
+            <li>Актуальная лексика — смотрим видео, слушаем подкасты, читаем статьи</li>
+          </ul>
+        </div>
+        <div class="facts" style="margin:0;">
+          <div class="fact"><b data-cfg="factYears">8.0</b><span>балл IELTS</span></div>
+          <div class="fact"><b data-cfg="factStudents">3+</b><span>года с носителями</span></div>
+          <div class="fact"><b data-cfg="factFormats">4</b><span>формата занятий</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ИНДИВИДУАЛЬНЫЕ ================= -->
+<section class="panel" id="tab-individual">
+  <div class="panel-inner">
+    <h2 class="section-title">Индивидуальные занятия</h2>
+    <p class="section-sub">Формат один на один — программа полностью под вас.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-top:0">Кому подойдёт</h3>
+        <ul class="list-check">
+          <li>Тем, кто хочет заниматься в своём темпе и без привязки к группе</li>
+          <li>Если нужна конкретная цель: работа, переезд, экзамен, собеседования</li>
+          <li>Начинающим — комфортно с нуля, без стеснения</li>
+          <li>Тем, кому важна гибкость в расписании</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Формат встреч</h3>
+        <ul class="list-check">
+          <li>Длительность занятия — 60 минут</li>
+          <li>Созваниваемся в Zoom</li>
+          <li>Работаем с доской в Miro</li>
+          <li>По желанию — персональный GPT-бот, который знает все пройденные темы: можно в любую свободную минуту прогнать грамматику, лексику или любое упражнение</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="reviews-head">Что говорят студенты</h3>
+    <p class="reviews-note">Из анонимного опроса студентов, октябрь 2025. Все 4 ответивших назвали домашние задания полезными.</p>
+    <div class="vibe-row" id="vibes-individual"></div>
+    <div class="reviews-grid" id="reviews-individual"></div>
+
+    <div class="price-note" style="margin-top:22px;">
+      💬 Стоимость и расписание — уточняйте в Telegram, подберём формат под ваш запрос.
+    </div>
+
+    <div class="cta-row" style="margin-top:22px;">
+      <a class="btn btn-primary" href="#" data-cfg-href="telegramContact" target="_blank" rel="noopener">Записаться на пробное занятие</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ГРУППОВЫЕ ================= -->
+<section class="panel" id="tab-groups">
+  <div class="panel-inner">
+    <h2 class="section-title">Групповые занятия</h2>
+    <p class="section-sub">Небольшие группы с похожим уровнем — атмосфера, мотивация и практика общения.</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-top:0">Почему группа</h3>
+        <ul class="list-check">
+          <li>Больше живой разговорной практики — общаетесь не только с преподавателем</li>
+          <li>Поддерживающая атмосфера и мотивация не бросить</li>
+          <li>Дешевле индивидуальных занятий при том же качестве программы</li>
+          <li>Группы формируются по уровню, чтобы всем было комфортно</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Формат</h3>
+        <ul class="list-check">
+          <li>Длительность занятия — 90 минут</li>
+          <li>Созваниваемся в Zoom, работаем с доской в Miro</li>
+          <li>Программа — General English, а если группе прямо очень хочется обсудить конкретную тему и пополнить по ней словарный запас — разберём и её</li>
+          <li>У группы свой чат в Telegram: можно поболтать, задать вопрос, поделиться примером лексики или грамматики из жизни — или просто мемом</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="reviews-head">Что говорят студенты</h3>
+    <p class="reviews-note">Из анонимного опроса студентов, октябрь 2025. Все 7 ответивших назвали домашние задания полезными.</p>
+    <div class="vibe-row" id="vibes-groups"></div>
+    <div class="reviews-grid" id="reviews-groups"></div>
+
+    <div class="price-note" style="margin-top:22px;">
+      💬 Стоимость, уровень и старт ближайшей группы — уточняйте в Telegram.
+    </div>
+
+    <div class="cta-row" style="margin-top:22px;">
+      <a class="btn btn-primary" href="#" data-cfg-href="telegramContact" target="_blank" rel="noopener">Узнать про набор в группу</a>
+      <a class="btn btn-ghost" href="#" data-cfg-href="telegramChannel" target="_blank" rel="noopener">Следить за анонсами в канале</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= РАЗГОВОРНЫЙ КЛУБ ================= -->
+<section class="panel" id="tab-club">
+  <div class="panel-inner">
+    <h2 class="section-title">Разговорный клуб</h2>
+    <p class="section-sub" data-cfg="clubText">
+      Еженедельный международный разговорный клуб. Главная цель изучения английского для большинства — говорить, и именно этим мы занимаемся.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-top:0">Как это работает</h3>
+        <ul class="list-check" style="gap:18px;">
+          <li style="display:block;">
+            <b style="display:block; color:var(--ink); margin-bottom:3px;">1️⃣ Перед клубом</b>
+            Короткое видео или простой материал и пара упражнений на интересные фразы, которые можно сразу использовать в речи
+          </li>
+          <li style="display:block;">
+            <b style="display:block; color:var(--ink); margin-bottom:3px;">2️⃣ На встрече</b>
+            Просто болтаем: применяем новые фразы и обсуждаем темы на английском
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Атмосфера</h3>
+        <ul class="list-check">
+          <li>Комфортно: никто не боится говорить и ошибаться</li>
+          <li>Много живой речи вместо упражнений на встрече</li>
+          <li>Международный формат — общаемся с людьми из разных стран</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cta-row" style="margin-top:28px;">
+      <a class="btn btn-primary" href="#" data-cfg-href="telegramContact" target="_blank" rel="noopener">Узнать о ближайшей встрече</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SPEAKING PROJECT BREADTALK ================= -->
+<section class="panel" id="tab-breadtalk">
+  <div class="panel-inner">
+    <div class="bt-head">
+      <img class="bt-logo" src="images/breadtalk-logo.jpg" alt="BreadTalk">
+      <div>
+        <span class="eyebrow">Онлайн · Разговорный проект</span>
+        <h2 class="section-title">Speaking Project BreadTalk 🚀</h2>
+      </div>
+    </div>
+    <p class="section-sub" data-cfg="breadtalkText">
+      Разговорный проект для тех, кто хочет прокачать английский актуальными фразами и выражениями,
+      которых не найти в учебниках — через живое применение в речи, а не упражнения.
+    </p>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3 style="margin-top:0">Как проходит</h3>
+        <ul class="list-check" style="gap:18px;">
+          <li style="display:block;">
+            <b style="display:block; color:var(--ink); margin-bottom:3px;">1️⃣ Подготовка</b>
+            Неделя до встречи: весь материал и упражнения на интерактивной платформе
+          </li>
+          <li style="display:block;">
+            <b style="display:block; color:var(--ink); margin-bottom:3px;">2️⃣ На встрече</b>
+            Никаких упражнений, только активное применение новых слов и выражений на практике.
+            «Применил = выучил», «не применил = ушло в пассив»
+          </li>
+          <li style="display:block;">
+            <b style="display:block; color:var(--ink); margin-bottom:3px;">3️⃣ После встречи</b>
+            Личный фидбэк: что получилось хорошо и над чем ещё поработать
+          </li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3 style="margin-top:0">Кому подойдёт</h3>
+        <ul class="list-check">
+          <li>Уровень от уверенного Intermediate, Upper-Intermediate и Advanced</li>
+          <li>Формат — онлайн, встречаемся раз в неделю</li>
+          <li>Группа 6–8 человек, на встрече работаем в парах</li>
+          <li>Тем, кто готов регулярно практиковаться и применять новую лексику в речи</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3 class="reviews-head">Как выглядит урок на платформе</h3>
+    <p class="reviews-note">Смотрим видео, отрабатываем лексику в разных упражнениях, а на встрече практикуем: обсуждаем и само видео, и личный опыт. Нажмите на картинку, чтобы увеличить.</p>
+    <div class="shots">
+      <figure class="shot shot-video"><img src="images/platform-1.jpg" alt="Видео по теме урока на платформе" loading="lazy"><figcaption>1. Смотрим видео</figcaption></figure>
+      <figure class="shot shot-group">
+        <div class="shot-row">
+          <img src="images/platform-2.jpg" alt="Упражнение: соотнести слова и картинки" loading="lazy">
+          <img src="images/platform-3.jpg" alt="Упражнение: соотнести слова и определения" loading="lazy">
+          <img src="images/platform-4.jpg" alt="Упражнение: вставить слова в предложения" loading="lazy">
+        </div>
+        <figcaption>2. Отрабатываем лексику в разных упражнениях</figcaption>
+      </figure>
+    </div>
+
+    <h3 class="reviews-head">Что говорят участники</h3>
+    <p class="reviews-note">Отзывы участников проекта из Telegram-канала.</p>
+    <div class="vibe-row" id="vibes-breadtalk"></div>
+    <div class="reviews-grid" id="reviews-breadtalk"></div>
+
+    <div class="card" style="margin-top:22px;">
+      <h3 style="margin-top:0">Ещё отзывы в Telegram</h3>
+      <div class="grid-2">
+        <a class="review-link" href="https://t.me/BreadTalkHere/445" target="_blank" rel="noopener">
+          <span class="review-icon">💬</span>
+          <span class="review-text">
+            <b>Мнение студента</b>
+            <em>Читать отзыв в Telegram</em>
+          </span>
+          <span class="review-arrow">→</span>
+        </a>
+        <a class="review-link" href="https://t.me/BreadTalkHere/123" target="_blank" rel="noopener">
+          <span class="review-icon">💬</span>
+          <span class="review-text">
+            <b>Мнение нейтива из Канады</b>
+            <em>Читать отзыв в Telegram</em>
+          </span>
+          <span class="review-arrow">→</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="price-note" style="margin-top:22px;">
+      💬 Готовы прокачать английский актуальнейшими фразами? Рад ответить на все вопросы в Telegram.
+    </div>
+
+    <div class="cta-row" style="margin-top:22px;">
+      <a class="btn btn-primary" href="#" data-cfg-href="telegramContact" target="_blank" rel="noopener">Записаться на BreadTalk</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TELEGRAM ================= -->
+<section class="panel" id="tab-telegram">
+  <div class="panel-inner">
+    <h2 class="section-title">Telegram-канал</h2>
+    <p class="section-sub">Разборы лексики, анонсы групп и разговорного клуба, живые примеры из английского.</p>
+
+    <div class="tg-layout">
+      <div>
+    <h3 class="reviews-head">Пример разбора лексики</h3>
+    <p class="reviews-note">Так выглядят посты в канале — попробуйте угадать значение. Таких разборов в канале более 150.</p>
+
+    <div class="tg-demo" id="tgDemo">
+      <div class="tg-msg">
+        <img src="images/rub-off-on-meme.jpg" alt="Мем: I would listen to you but I don't want your stupidity to rub off on me">
+        <p class="tg-cap">Прикрепляю мем — проанализируйте контекст и выберите правильное значение ниже 👇</p>
+      </div>
+
+      <div class="tg-msg tg-poll">
+        <p class="poll-title">rub off on</p>
+        <p class="poll-type">Anonymous Quiz</p>
+        <div class="poll-options" id="pollOptions"></div>
+        <p class="poll-result" id="pollResult" hidden></p>
+      </div>
+
+      <div id="tgReveal" hidden>
+        <div class="tg-msg">
+          <p class="tg-post">😌 <b>RUB OFF ON</b>
+Есть люди рядом с которыми ты меняешься сам того не замечая. Их привычки, настроение, энергия — незаметно "прилипают" к тебе просто от постоянного общения.
+Вот это и есть rub off on — когда что-то (хорошее или не очень) передаётся от одного человека к другому просто через близость, без всяких усилий.
+
+Работает и в плюс, и в минус — можно "заразиться" чужим энтузиазмом, а можно и дурными привычками 😄
+
+🎬 Смотрим видео — слышим вживую, забираем в копилку 👀</p>
+          <video id="tgVideo" controls playsinline preload="none" poster="images/rub-off-on-meme.jpg" src="video/rub-off-on.mp4"></video>
+        </div>
+        <div class="tg-demo-foot">
+          <a class="btn btn-primary" href="#" data-cfg-href="telegramChannel" target="_blank" rel="noopener">Больше 150 разборов в канале →</a>
+          <button type="button" class="btn btn-ghost" id="pollReset">Попробовать ещё раз</button>
+        </div>
+      </div>
+    </div>
+
+      </div>
+      <div class="tg-side">
+    <div class="tg-card">
+      <div class="tg-icon">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.5 3.5L2.5 10.8c-1.1.43-1.1 1.5-.02 1.9l4.9 1.6 1.9 5.9c.24.7 1.1.9 1.6.36l2.6-2.8 4.9 3.6c.8.6 1.9.2 2.1-.8l3-14.1c.25-1.1-.6-1.9-1.99-1.4Z" stroke="white" stroke-width="1.5" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <div>
+        <h3 data-cfg="name2">Подписывайтесь на канал</h3>
+        <p data-cfg="tgAbout">Здесь я разбираю лексику из фильмов и видео, делюсь полезными фразами
+          и рассказываю про индивидуальные, групповые занятия и разговорный клуб.</p>
+      </div>
+      <a class="btn btn-primary" href="#" data-cfg-href="telegramChannel" target="_blank" rel="noopener">Открыть канал →</a>
+    </div>
+
+    <div class="tg-facts">
+      <div class="tg-stat"><b>150+</b><span>разборов лексики уже в канале</span></div>
+      <ul class="list-check">
+        <li>Слова и выражения из видео и фильмов с примерами</li>
+        <li>Анонсы набора в группы и встреч разговорного клуба</li>
+        <li>Как говорят на самом деле — без учебной обёртки</li>
+      </ul>
+    </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="lightbox" id="lightbox" hidden><img alt=""></div>
+
+<footer class="site">
+  <div class="wrap">
+    <span>© <span id="year"></span> <span data-cfg="name">Александр Хлебодаров</span></span>
+    <span>Английский · Индивидуально, группы, разговорный клуб</span>
+  </div>
+</footer>
+
+<script>
+/* ============================================================
+   НАСТРОЙКИ САЙТА — редактируйте здесь
+   ============================================================ */
+const CONFIG = {
+  name: "Александр Хлебодаров",         // ваше имя / псевдоним
+  heroText: "Индивидуальные занятия, группы и разговорный клуб — выбирайте формат под свою цель и уровень.",
+  telegramChannel: "https://t.me/BreadTalkHere",   // ссылка на ваш ТГ-канал
+  telegramContact: "https://t.me/Hlebodarows",  // ссылка для личных сообщений в ТГ
+
+  aboutText1: `Привет! Меня зовут Александр. Я выучил английский сам — без курсов и преподавателей. Смотрел обучающие видео на YouTube, читал, целыми сезонами смотрел сериалы, выписывал слова и мучил знакомых вопросами «а как вообще работает эта фраза». Постоянно искал возможность практиковаться — хотя бы онлайн. Несколько лет спустя это привело меня в канадскую туристическую компанию <a href="https://www.gadventures.com" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700;">G Adventures</a>, где я три года работал турлидером и почти без остановки общался с носителями — это дало мощный разговорный буст.`,
+  aboutText2: `Когда пандемия остановила туризм, я пришёл в преподавание — сначала в крупный языковой центр <a href="https://inter-nation.uz/ru" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700; ">Internation</a> в Узбекистане (12 000+ студентов), где получил первый опыт работы с группами и индивидуально, а рядом были опытные менторы. Тогда же сдал IELTS на 7.0 (Speaking — 7.5), а в 2023 году — Academic IELTS на 8.0. После Узбекистана работал в IELTS-центре во Вьетнаме, а затем перешёл в школу <a href="https://beowulf.school" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700;">Virginia Beowulf</a>, где преподаю и сейчас. С разными студентами работаю по-разному — подход зависит от конкретного запроса и цели. Но главное для меня неизменно: чтобы студент не просто угадывал правильный ответ в тесте, а понимал, почему он верный, и мог использовать это не только на экзамене, но и в жизни.`,
+  aboutQuote: `«Я не объясняю английский с чужих слов — я сам набил все шишки на этом пути и помогаю другим пройти его быстрее».`,
+
+  factYears: "8.0",
+  factStudents: "3+",
+  factFormats: "4",
+
+  clubText: `Еженедельный международный разговорный клуб. Главная цель изучения английского для большинства — говорить, и именно этим мы занимаемся.`,
+
+  breadtalkText: `Разговорный проект для тех, кто хочет прокачать английский актуальными фразами и выражениями, которых не найти в учебниках — через живое применение в речи, а не упражнения.`,
+
+  tgAbout: `Здесь я разбираю лексику из фильмов и видео, делюсь полезными фразами и рассказываю про индивидуальные, групповые занятия и разговорный клуб.`,
+};
+
+/* ------------------------------------------------------------
+   ОТЗЫВЫ (из анонимного опроса студентов, цитаты дословно)
+   q — вопрос опроса, who — подпись. Чтобы добавить имя —
+   укажите его в who (с согласия студента).
+   ------------------------------------------------------------ */
+const REVIEWS = {
+  individual: {
+    vibes: ["Awesome", "Спокойно", "Много ресурсов", "Персональный подход"],
+    items: [
+      { q: "Атмосфера на занятиях", text: "F*cking awesome, superkalifragilisticexspealadoushes", who: "Студент, индивидуальные занятия" },
+      { q: "Атмосфера и ресурсы", text: "I feel calm and really satisfied with your lessons. I like how we use a lot of different resources.", who: "Студент, индивидуальные занятия" },
+      { q: "Что цените больше всего", text: "Мне оч нравятся уроки спешл фо ми и твой подход. Когда люди сами горят своей работой, хочется гореть и светить вместе с ними))", who: "Студент, индивидуальные занятия" },
+      { q: "Что самое полезное узнали", text: "Новые прикольные фразочки, которые ты подготовил специально для меня 🥰", who: "Студент, индивидуальные занятия" },
+      { q: "Что цените больше всего", text: "Your patience", who: "Студент, индивидуальные занятия" },    ],
+  },
+  breadtalk: {
+    vibes: ["Неформально и дружелюбно", "Темы на любой вкус", "Участники из разных стран", "Фидбэк после встречи", "Живая лексика"],
+    items: [
+      { q: "Отзыв участницы", text: "Хотелось бы оставить отзыв здесь на спикинг, вдруг кто-то сомневается в своем решении начать) Я начала ходить на самый первый спикинг Александра в конце 24 года и сначала сомневалась нужно ли мне это, обычно спикинги - это где вы сидите и обсуждаете непонятно что, но уже после первого занятия с Александром и группой, я поняла, что это не так🤞 Каждая встреча - это новая тема, новые знания не только в английском, но и о других странах, людях, жизни. Так, например, после темы Overstimulation, я начала избавляться от надоедливых уведомлений, подписок и начинать свой день без телефона в руках 🙌 Ну, и конечно, новые слова, новые возможности в английском😉 На такие занятия хочется ходить и после них остается приятное чувство! Спасибо большое Александру! I had a blast!🤍", who: "Участница BreadTalk" },
+      { q: "Отзыв участника", text: "Aleksandr's course is a great way to practice your speaking skills and improve your vocabulary in process! I'd like to point out that I had a lot of opportunities to express my opinion on different topics and talk to other students from different parts of the world(!). The exercises for the course are made for ~B2-C1 level, so there's always a room for improvement of your lexical and grammatical background, but the atmosphere is still very informal and friendly. Definitely recommend it!", who: "Участник BreadTalk" },
+      { q: "Отзыв участника", text: "Разговорный курс Александра не только помогает улучшить навык общения на английском, но и содержит невероятное количество полезной лексики, которую не просто выучил и забыл, но еще и качественно проработал в многочисленных упражнениях, что сложнее уже, скорее, ее не вспомнить😁. Кроме того, обычно новую лексику дают либо как есть, либо с одним примером-предложением; Александр же дает как минимум по 3-4 примера, что, во всяком случае мне, позволяет куда лучше запомнить новые слова и фразы. Что самое интересное, лексика / грамматика предоставляются не в отрыве от обычной жизни, а на основе реальных видео по темам, которые ты действительно с удовольствием посмотрел бы в свободное время (work life balance; development of technology; social issues; neuroscience etc). Учитывая, что это темы постоянно возникают и в повседневном разговоре / при small talk, живая лексика от Александра приходится очень кстати☝️", who: "Участник BreadTalk" },
+      { q: "Отзыв участника", text: "It's a nice platform and group to practice English, also make new friends. There are many topics worth discussing on BreadTalk. We can get own feedback everytime after the talk. Recommend!!!", who: "Участник BreadTalk" },
+      { q: "Отзыв участника", text: "I liked the format so much! Knowing in advance what we’ll be talking about is really nice because we can be well-prepared ( but I wasn’t 🤣) . I didn’t even notice how 1.5 hours passed", who: "Участник BreadTalk" },
+    ],
+  },
+  groups: {
+    vibes: ["Fun", "Motivating", "Friendly", "Relaxed", "Interesting", "Challenging"],
+    items: [
+      { q: "Что цените больше всего", text: "I really like the design of our topics on miro. And the way that students can feel free to joke. Because jokes can be the specific thing that can help you to remember particular word. And the balance between speaking, reading, grammar exercises!", who: "Студент группы" },
+      { q: "Что цените больше всего", text: "Что мы прорабатываем ошибки всей группой и можем их всей группой найти самостоятельно. Домашка есть всегда после урока это важно! … Ещё мне нравится, что есть обратная связь по домашке, потому что в другой группе у меня ее нет. Доски хорошо структурированы, есть понимание, как будет построен урок и так же есть разграничение на разные активности.", who: "Студентка группы" },
+      { q: "Атмосфера и преподаватель", text: "It's pretty friendly & motivating. … You're really cool and helpful professional. Keep it up!", who: "Студент группы" },
+      { q: "Атмосфера и обратная связь", text: "Fun and motivating. … Detailed feedback and responsiveness.", who: "Студент группы" },
+      { q: "Что самое полезное узнали", text: "I've learned Englisch is simple", who: "Студентка группы" },
+      { q: "Атмосфера на занятиях", text: "Веселая и мотивирующая", who: "Студентка группы" },
+      { q: "Что самое полезное узнали", text: "the topic about expressions with the word “thing” was very useful and interesting, even if I hadn’t attended it, I made a review", who: "Студентка группы" },
+      { q: "Что цените больше всего", text: "Поддержку и внимание к деталям", who: "Студентка группы" },
+      { q: "Что цените больше всего", text: "The atmosphere of the classes that you create", who: "Студент группы" },
+    ],
+  },
+};
+
+function renderReviews(){
+  for (const [tab, data] of Object.entries(REVIEWS)) {
+    const vibes = document.getElementById("vibes-" + tab);
+    const grid = document.getElementById("reviews-" + tab);
+    if (vibes) {
+      vibes.innerHTML = "";
+      data.vibes.forEach(v => {
+        const s = document.createElement("span");
+        s.className = "vibe"; s.textContent = v;
+        vibes.appendChild(s);
+      });
+    }
+    if (grid) {
+      grid.innerHTML = "";
+      data.items.forEach(r => {
+        const c = document.createElement("figure");
+        c.className = "review-card"; c.style.margin = "0 0 18px";
+        const q = document.createElement("p"); q.className = "rq"; q.textContent = r.q;
+        const t = document.createElement("p"); t.className = "rt"; t.textContent = r.text;
+        const w = document.createElement("p"); w.className = "rw"; w.textContent = r.who;
+        c.append(q, t, w);
+        grid.appendChild(c);
+      });
+    }
+  }
+}
+
+/* Квиз-пример на вкладке Telegram. pct — реальные результаты опроса в канале (45 ответов). */
+const POLL = [
+  { text: "физически потереться о кого-то, коснуться поверхности", pct: 11 },
+  { text: "незаметно передаться кому-то через постоянное общение (привычки, настроение, качества)", pct: 80, correct: true },
+  { text: "начать нравиться", pct: 9 },
+];
+
+function initPoll(){
+  const wrap = document.getElementById("pollOptions");
+  const poll = wrap && wrap.closest(".tg-poll");
+  const result = document.getElementById("pollResult");
+  const reveal = document.getElementById("tgReveal");
+  const video = document.getElementById("tgVideo");
+  if (!wrap) return;
+
+  function build(){
+    wrap.innerHTML = "";
+    poll.classList.remove("poll-done");
+    result.hidden = true; result.className = "poll-result";
+    reveal.hidden = true;
+    if (video) { video.pause(); video.currentTime = 0; }
+    POLL.forEach((o, i) => {
+      const b = document.createElement("button");
+      b.type = "button"; b.className = "poll-opt";
+      const bar = document.createElement("span"); bar.className = "bar";
+      const pct = document.createElement("span"); pct.className = "pct"; pct.textContent = o.pct + "%";
+      const txt = document.createElement("span"); txt.className = "txt"; txt.textContent = o.text;
+      const mark = document.createElement("span"); mark.className = "mark";
+      b.dataset.i = i;
+      b.append(bar, pct, txt, mark);
+      wrap.appendChild(b);
+    });
+  }
+
+  wrap.addEventListener("click", e => {
+    const b = e.target.closest(".poll-opt");
+    if (b && wrap.contains(b)) answer(Number(b.dataset.i));
+  });
+
+  function answer(i){
+    if (poll.classList.contains("poll-done")) return;
+    poll.classList.add("poll-done");
+    const buttons = [...wrap.children];
+    buttons.forEach((b, k) => {
+      const o = POLL[k];
+      b.querySelector(".bar").style.width = o.pct + "%";
+      if (o.correct) { b.classList.add("correct"); b.querySelector(".mark").textContent = "✅"; }
+      if (k === i && !o.correct) { b.classList.add("wrong"); b.querySelector(".mark").textContent = "❌"; }
+    });
+    const ok = !!POLL[i].correct;
+    result.textContent = ok ? "Верно! 🎉 Так ответили 80% участников канала." : "Не совсем. Правильный ответ отмечен зелёным — смотрите разбор ниже 👇";
+    result.className = "poll-result " + (ok ? "ok" : "no");
+    result.hidden = false;
+    reveal.hidden = false;
+  }
+
+  document.getElementById("pollReset").addEventListener("click", build);
+  build();
+}
+
+/* Верхний блок (слоган + фото) показывается только на вкладке «Обо мне». */
+const HERO_IMAGES = {
+  about: "images/about-photo.jpg",
+};
+
+/* ============================================================
+   Ниже — логика сайта, обычно менять не нужно
+   ============================================================ */
+
+// подставляем текстовые данные из CONFIG в разметку
+document.querySelectorAll("[data-cfg]").forEach(el => {
+  const key = el.getAttribute("data-cfg");
+  if (CONFIG[key] !== undefined) el.textContent = CONFIG[key];
+});
+document.querySelectorAll("[data-cfg-html]").forEach(el => {
+  const key = el.getAttribute("data-cfg-html");
+  if (CONFIG[key] !== undefined) el.innerHTML = CONFIG[key];
+});
+document.querySelectorAll("[data-cfg-href]").forEach(el => {
+  const key = el.getAttribute("data-cfg-href");
+  if (CONFIG[key] !== undefined) el.setAttribute("href", CONFIG[key]);
+});
+
+renderReviews();
+initPoll();
+
+// фото в главном блоке — своё для вкладки или плейсхолдер
+function updateHeroPhoto(name){
+  const hero = document.querySelector(".hero");
+  const box = document.getElementById("heroPhoto");
+  const show = name === "about";
+  if (hero) hero.style.display = show ? "" : "none";
+  document.body.classList.toggle("no-hero", !show);
+  if (!box || !show) return;
+  const src = HERO_IMAGES[name];
+  box.innerHTML = src
+    ? `<img src="${src}" alt="${CONFIG.name}">`
+    : `<span>Место для вашей фотографии</span>`;
+}
+
+// увеличение скриншотов платформы
+(function(){
+  const box = document.getElementById("lightbox");
+  const big = box.querySelector("img");
+  document.querySelectorAll(".shot img").forEach(img => img.addEventListener("click", () => {
+    big.src = img.src; big.alt = img.alt; box.hidden = false;
+  }));
+  box.addEventListener("click", () => { box.hidden = true; });
+  document.addEventListener("keydown", e => { if (e.key === "Escape") box.hidden = true; });
+})();
+
+// табы
+function showTab(name){
+  document.querySelectorAll("section.panel").forEach(p => p.classList.remove("active"));
+  document.querySelectorAll("nav.tabs button").forEach(b => b.classList.remove("active"));
+  const panel = document.getElementById("tab-" + name);
+  const btn = document.querySelector(`nav.tabs button[data-tab="${name}"]`);
+  if (panel) panel.classList.add("active");
+  if (btn) btn.classList.add("active");
+  updateHeroPhoto(name);
+  history.replaceState(null, "", "#" + name);
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+document.querySelectorAll("nav.tabs button").forEach(btn => {
+  btn.addEventListener("click", () => showTab(btn.getAttribute("data-tab")));
+});
+
+// открыть нужный таб по хэшу в адресе (например /#club)
+const initial = location.hash.replace("#", "");
+if (["about","individual","groups","club","breadtalk","telegram"].includes(initial)) {
+  showTab(initial);
+} else {
+  updateHeroPhoto("about");
+}
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
