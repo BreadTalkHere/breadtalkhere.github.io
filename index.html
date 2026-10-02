@@ -484,12 +484,23 @@
   .poll-opt.wrong .bar{ background:#f5d6d0; }
   body.no-hero section.panel{ padding-top:44px; }
 
+  .lang-toggle{
+    order:3; margin-left:4px; cursor:pointer;
+    background:transparent; color:var(--ink); border:1.5px solid rgba(31,44,58,.3);
+    border-radius:999px; padding:7px 12px; font:inherit; font-weight:800; font-size:.8rem; letter-spacing:.06em;
+    transition:background .15s, border-color .15s;
+  }
+  .lang-toggle:hover{ background:rgba(99,125,150,.14); border-color:var(--ral); }
+  nav.tabs{ order:2; }
   .menu-toggle{ display:none; }
-  @media (max-width:860px){
+  @media (max-width:1120px){
     .site-bar{ flex-wrap:wrap; gap:8px 12px; padding:10px 16px; }
     .site-bar{ flex-wrap:wrap; }
     .brand{ font-size:.92rem; white-space:normal; line-height:1.15; flex:1 1 0; min-width:0; }
     .menu-toggle{ flex:0 0 auto; }
+    .lang-toggle{ order:1; margin-left:auto; padding:9px 12px; }
+    .menu-toggle{ order:2; margin-left:0; }
+    nav.tabs{ order:3; }
     .menu-toggle{
       display:flex; align-items:center; gap:8px; margin-left:auto;
       background:linear-gradient(180deg,#6d87a2,#55708b); color:#fff; border:none; border-radius:999px; cursor:pointer;
@@ -526,13 +537,14 @@
       <span class="dot"></span>
       <span data-cfg="name">Александр Хлебодаров</span>
     </a>
+    <button type="button" class="lang-toggle" id="langToggle" aria-label="Language / Язык">EN</button>
     <button type="button" class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="tabs"><span class="burger" aria-hidden="true">☰</span><span>Меню</span></button>
     <nav class="tabs" id="tabs">
       <button data-tab="about" class="active">Обо мне</button>
       <button data-tab="individual">Индивидуальные</button>
       <button data-tab="groups">Групповые</button>
       <button data-tab="club">Разговорный клуб</button>
-      <button data-tab="breadtalk">BreadTalk</button>
+      <button data-tab="breadtalk">Разговорный проект BreadTalk</button>
       <button data-tab="telegram">Telegram</button>
     </nav>
   </div>
@@ -736,7 +748,7 @@
       <img class="bt-logo" src="images/breadtalk-logo.jpg" alt="BreadTalk">
       <div>
         <span class="eyebrow">Онлайн · Разговорный проект</span>
-        <h2 class="section-title">Speaking Project BreadTalk 🚀</h2>
+        <h2 class="section-title">Разговорный проект BreadTalk 🚀</h2>
       </div>
     </div>
     <p class="section-sub" data-cfg="breadtalkText">
@@ -876,7 +888,7 @@
         </svg>
       </div>
       <div>
-        <h3 data-cfg="name2">Подписывайтесь на канал</h3>
+        <h3>Подписывайтесь на канал</h3>
         <p data-cfg="tgAbout">Здесь я разбираю лексику из фильмов и видео, делюсь полезными фразами
           и рассказываю про индивидуальные, групповые занятия и разговорный клуб.</p>
       </div>
@@ -907,8 +919,198 @@
 
 <script>
 /* ============================================================
+   ENGLISH VERSION — тексты для английской версии сайта.
+   Чтобы поправить английский текст — меняйте его здесь.
+   DICT: "русский текст из разметки" → "English text".
+   ============================================================ */
+const CONFIG_EN = {
+  name: "Aleksandr Khlebodarov",
+  heroText: "Individual lessons, groups and a speaking club — pick the format that fits your goal and level.",
+  aboutText1: `Hi! I'm Aleksandr. I taught myself English — no courses, no teachers. I watched educational videos on YouTube, read, binge-watched whole seasons of series, wrote down words and pestered friends with questions like “how does this phrase actually work?”. I kept looking for ways to practise, even if only online. A few years later that led me to the Canadian travel company <a href="https://www.gadventures.com" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700;">G Adventures</a>, where I worked as a tour leader for three years and talked with native speakers almost non-stop — a huge speaking boost.`,
+  aboutText2: `When the pandemic stopped tourism, I moved into teaching — first at a large language centre, <a href="https://inter-nation.uz/ru" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700; ">Internation</a> in Uzbekistan (12,000+ students), where I got my first experience with groups and one-to-one lessons, with experienced mentors around. That's when I took IELTS and scored 7.0 (Speaking 7.5); in 2023 I got Academic IELTS 8.0. After Uzbekistan I worked at an IELTS centre in Vietnam, and then joined the school <a href="https://beowulf.school" target="_blank" rel="noopener" style="color:var(--accent); font-weight:700;">Virginia Beowulf</a>, where I teach today. I work differently with different students — the approach depends on their goals and needs. But one thing never changes: I want a student not just to guess the right answer on a test, but to understand why it's right, and to use it not only in the exam but in real life.`,
+  aboutQuote: `“I don't explain English from other people's words — I've made all the mistakes on this road myself, and I help others get through it faster.”`,
+  clubText: `A weekly international speaking club. For most people the main goal of learning English is to speak — and that's exactly what we do.`,
+  breadtalkText: `A speaking project for those who want to level up their English with up-to-date phrases and expressions you won't find in textbooks — through real use in conversation, not exercises.`,
+  tgAbout: `Here I break down vocabulary from films and videos, share useful phrases and tell you about individual lessons, groups and the speaking club.`,
+};
+
+const STR = {
+  ru: {
+    pollOk: "Верно! 🎉 Так ответили 80% участников канала.",
+    pollNo: "Не совсем. Правильный ответ отмечен зелёным — смотрите разбор ниже 👇",
+    photo: "Место для вашей фотографии",
+    translated: "",
+  },
+  en: {
+    pollOk: "Correct! 🎉 80% of the channel's members answered this way.",
+    pollNo: "Not quite. The right answer is highlighted in green — see the breakdown below 👇",
+    photo: "Your photo here",
+    translated: ", translated from Russian",
+  },
+};
+
+const POLL_EN = [
+  "physically rub against someone, touch a surface",
+  "to pass on to someone unnoticed through constant contact (habits, mood, qualities)",
+  "to start being liked",
+];
+
+const Q_EN = {
+  "Атмосфера на занятиях": "Atmosphere in lessons",
+  "Атмосфера и ресурсы": "Atmosphere and resources",
+  "Что цените больше всего": "What they value most",
+  "Что самое полезное узнали": "Most useful thing they learned",
+  "Отзыв участницы": "Member review",
+  "Отзыв участника": "Member review",
+  "Атмосфера и преподаватель": "Atmosphere and teacher",
+  "Атмосфера и обратная связь": "Atmosphere and feedback",
+};
+const WHO_EN = {
+  "Студент, индивидуальные занятия": "Student, individual lessons",
+  "Студент группы": "Group student",
+  "Студентка группы": "Group student",
+  "Участница BreadTalk": "BreadTalk member",
+  "Участник BreadTalk": "BreadTalk member",
+};
+const VIBE_EN = {
+  "Спокойно": "Calm", "Много ресурсов": "Lots of resources", "Персональный подход": "Personal approach",
+  "Неформально и дружелюбно": "Informal and friendly", "Темы на любой вкус": "Topics for every taste",
+  "Участники из разных стран": "Members from different countries", "Фидбэк после встречи": "Feedback after each session",
+  "Живая лексика": "Live vocabulary",
+};
+/* Английские отзывы остаются дословно; русские показываются в переводе. */
+const TEXT_EN = [
+  ["Мне оч нравятся", "I really like the lessons “special for me” and your approach. When people are on fire about their work, you want to burn and shine together with them))"],
+  ["Новые прикольные", "The fun new phrases you prepared specially for me 🥰"],
+  ["Что мы прорабатываем", "That we work through mistakes as a whole group and can find them ourselves, together. There is always homework after the lesson, and that's important! … I also like that there is feedback on homework, because in my other group there isn't any. The boards are well structured, you understand how the lesson will be built, and there's a clear split between different activities."],
+  ["Веселая и мотивирующая", "Fun and motivating"],
+  ["Поддержку и внимание", "Support and attention to detail"],
+  ["Хотелось бы оставить отзыв", "I wanted to leave a review here about the speaking club, in case someone is doubting their decision to start) I started coming to Aleksandr's very first speaking session at the end of 2024 and at first I doubted whether I needed it — speaking clubs are usually where you sit and discuss who knows what, but already after the first session with Aleksandr and the group I realised it isn't like that 🤞 Every meeting is a new topic, new knowledge not only about English but also about other countries, people, life. For example, after the topic Overstimulation I started getting rid of annoying notifications and subscriptions and beginning my day without a phone in my hands 🙌 And of course — new words, new possibilities in English 😉 You want to come to these sessions, and afterwards you're left with a pleasant feeling! Many thanks to Aleksandr! I had a blast! 🤍"],
+  ["Разговорный курс Александра", "Aleksandr's speaking course not only helps to improve communication skills in English, but also contains an incredible amount of useful vocabulary that you don't just learn and forget, but work through properly in numerous exercises — so it's harder not to remember it now 😁. Besides, new vocabulary is usually given either as is or with a single example sentence; Aleksandr gives at least 3–4 examples, which, at least for me, helps me remember new words and phrases much better. What's most interesting, the vocabulary / grammar isn't presented in isolation from everyday life but based on real videos on topics you'd genuinely enjoy watching in your free time (work life balance; development of technology; social issues; neuroscience etc). Considering these topics constantly come up in everyday conversation / small talk, Aleksandr's live vocabulary comes in very handy ☝️"],
+];
+
+const DICT = {
+  "Меню": "Menu",
+  "Обо мне": "About",
+  "Индивидуальные": "Individual",
+  "Групповые": "Groups",
+  "Разговорный клуб": "Speaking club",
+  "Преподаватель английского языка": "English teacher",
+  "Говори так, чтобы восхищались даже носители!": "Sound so natural that even native speakers will be impressed!",
+  "Написать в Telegram": "Message on Telegram",
+  "Открыть ТГ-канал": "Open Telegram channel",
+  "Немного о моём опыте и подходе к преподаванию.": "A little about my experience and teaching approach.",
+  "Выучил сам, без курсов": "Self-taught, no courses",
+  "3 года с носителями": "3 years with native speakers",
+  "Как я работаю": "How I work",
+  "Подбираю форматы и материалы под цель и уровень ученика, а не беру любой попавшийся учебник": "I choose formats and materials for each student's goal and level instead of grabbing any textbook that comes along",
+  "Много живой речи и практики": "Lots of real speech and practice",
+  "Регулярная обратная связь, чтобы не выпускать из фокуса ошибки": "Regular feedback, so mistakes never slip out of focus",
+  "Актуальная лексика — смотрим видео, слушаем подкасты, читаем статьи": "Up-to-date vocabulary — we watch videos, listen to podcasts and read articles",
+  "балл IELTS": "IELTS score",
+  "года с носителями": "years with native speakers",
+  "формата занятий": "lesson formats",
+  "Индивидуальные занятия": "Individual lessons",
+  "Формат один на один — программа полностью под вас.": "One-to-one format — the programme is built entirely around you.",
+  "Кому подойдёт": "Who it's for",
+  "Тем, кто хочет заниматься в своём темпе и без привязки к группе": "For those who want to study at their own pace, not tied to a group",
+  "Если нужна конкретная цель: работа, переезд, экзамен, собеседования": "If you have a specific goal: work, relocation, an exam, interviews",
+  "Начинающим — комфортно с нуля, без стеснения": "Beginners — comfortable from scratch, with no embarrassment",
+  "Тем, кому важна гибкость в расписании": "For those who need a flexible schedule",
+  "Формат встреч": "Lesson format",
+  "Длительность занятия — 60 минут": "Lesson length — 60 minutes",
+  "Созваниваемся в Zoom": "We meet on Zoom",
+  "Работаем с доской в Miro": "We work on a Miro board",
+  "По желанию — персональный GPT-бот, который знает все пройденные темы: можно в любую свободную минуту прогнать грамматику, лексику или любое упражнение": "Optionally — a personal GPT bot that knows every topic we've covered: in any free minute you can run through grammar, vocabulary or any exercise",
+  "Что говорят студенты": "What students say",
+  "Из анонимного опроса студентов, октябрь 2025. Все 4 ответивших назвали домашние задания полезными.": "From an anonymous student survey, October 2025. All 4 respondents called the homework useful.",
+  "💬 Стоимость и расписание — уточняйте в Telegram, подберём формат под ваш запрос.": "💬 Prices and schedule — ask me on Telegram, we'll find a format for your request.",
+  "Записаться на пробное занятие": "Book a trial lesson",
+  "Групповые занятия": "Group lessons",
+  "Небольшие группы с похожим уровнем — атмосфера, мотивация и практика общения.": "Small groups of a similar level — atmosphere, motivation and conversation practice.",
+  "Почему группа": "Why a group",
+  "Больше живой разговорной практики — общаетесь не только с преподавателем": "More real speaking practice — you talk to more people than just the teacher",
+  "Поддерживающая атмосфера и мотивация не бросить": "A supportive atmosphere and motivation to keep going",
+  "Дешевле индивидуальных занятий при том же качестве программы": "Cheaper than individual lessons with the same quality of programme",
+  "Группы формируются по уровню, чтобы всем было комфортно": "Groups are formed by level, so everyone feels comfortable",
+  "Формат": "Format",
+  "Длительность занятия — 90 минут": "Lesson length — 90 minutes",
+  "Созваниваемся в Zoom, работаем с доской в Miro": "We meet on Zoom and work on a Miro board",
+  "Программа — General English, а если группе прямо очень хочется обсудить конкретную тему и пополнить по ней словарный запас — разберём и её": "The programme is General English, and if the group really wants to discuss a particular topic and expand its vocabulary — we'll cover that too",
+  "У группы свой чат в Telegram: можно поболтать, задать вопрос, поделиться примером лексики или грамматики из жизни — или просто мемом": "The group has its own Telegram chat: you can chat, ask questions, share examples of vocabulary or grammar from real life — or just a meme",
+  "Из анонимного опроса студентов, октябрь 2025. Все 7 ответивших назвали домашние задания полезными.": "From an anonymous student survey, October 2025. All 7 respondents called the homework useful.",
+  "💬 Стоимость, уровень и старт ближайшей группы — уточняйте в Telegram.": "💬 Prices, level and start date of the next group — ask me on Telegram.",
+  "Узнать про набор в группу": "Ask about joining a group",
+  "Следить за анонсами в канале": "Follow announcements in the channel",
+  "Как это работает": "How it works",
+  "1️⃣ Перед клубом": "1️⃣ Before the club",
+  "Короткое видео или простой материал и пара упражнений на интересные фразы, которые можно сразу использовать в речи": "A short video or simple material and a couple of exercises on interesting phrases you can use right away",
+  "2️⃣ На встрече": "2️⃣ At the meeting",
+  "Просто болтаем: применяем новые фразы и обсуждаем темы на английском": "We just talk: we use the new phrases and discuss topics in English",
+  "Атмосфера": "Atmosphere",
+  "Комфортно: никто не боится говорить и ошибаться": "Comfortable: nobody is afraid to speak or make mistakes",
+  "Много живой речи вместо упражнений на встрече": "Lots of real speech instead of exercises at the meeting",
+  "Международный формат — общаемся с людьми из разных стран": "International format — we talk with people from different countries",
+  "Узнать о ближайшей встрече": "Find out about the next meeting",
+  "Онлайн · Разговорный проект": "Online · Speaking project",
+  "Разговорный проект BreadTalk": "Speaking project BreadTalk",
+  "Разговорный проект BreadTalk 🚀": "Speaking Project BreadTalk 🚀",
+  "Как проходит": "How it goes",
+  "1️⃣ Подготовка": "1️⃣ Preparation",
+  "Неделя до встречи: весь материал и упражнения на интерактивной платформе": "A week before the meeting: all materials and exercises on the interactive platform",
+  "Никаких упражнений, только активное применение новых слов и выражений на практике. «Применил = выучил», «не применил = ушло в пассив»": "No exercises, just active use of new words and expressions in practice. “Used it = learned it”, “didn't use it = it goes passive”",
+  "3️⃣ После встречи": "3️⃣ After the meeting",
+  "Личный фидбэк: что получилось хорошо и над чем ещё поработать": "Personal feedback: what went well and what to work on next",
+  "Уровень от уверенного Intermediate, Upper-Intermediate и Advanced": "Level from a confident Intermediate, Upper-Intermediate and Advanced",
+  "Формат — онлайн, встречаемся раз в неделю": "Online format, we meet once a week",
+  "Группа 6–8 человек, на встрече работаем в парах": "A group of 6–8 people, we work in pairs at the meeting",
+  "Тем, кто готов регулярно практиковаться и применять новую лексику в речи": "For those ready to practise regularly and use new vocabulary in speech",
+  "Как выглядит урок на платформе": "What a lesson on the platform looks like",
+  "Смотрим видео, отрабатываем лексику в разных упражнениях, а на встрече практикуем: обсуждаем и само видео, и личный опыт. Нажмите на картинку, чтобы увеличить.": "We watch a video, practise vocabulary in different exercises, and at the meeting we speak: we discuss both the video itself and our personal experience. Click an image to enlarge.",
+  "1. Смотрим видео": "1. We watch a video",
+  "2. Отрабатываем лексику в разных упражнениях": "2. We practise vocabulary in different exercises",
+  "Что говорят участники": "What members say",
+  "Отзывы участников проекта из Telegram-канала.": "Reviews from the project's members in the Telegram channel.",
+  "Ещё отзывы в Telegram": "More reviews on Telegram",
+  "Мнение студента": "A student's opinion",
+  "Читать отзыв в Telegram": "Read the review on Telegram",
+  "Мнение нейтива из Канады": "A native speaker from Canada",
+  "💬 Готовы прокачать английский актуальнейшими фразами? Рад ответить на все вопросы в Telegram.": "💬 Ready to level up your English with up-to-date phrases? Happy to answer any questions on Telegram.",
+  "Записаться на BreadTalk": "Join BreadTalk",
+  "Telegram-канал": "Telegram channel",
+  "Разборы лексики, анонсы групп и разговорного клуба, живые примеры из английского.": "Vocabulary breakdowns, announcements for groups and the speaking club, real examples of English.",
+  "Пример разбора лексики": "An example vocabulary breakdown",
+  "Так выглядят посты в канале — попробуйте угадать значение. Таких разборов в канале более 150.": "This is what posts in the channel look like — try to guess the meaning. There are more than 150 such breakdowns in the channel.",
+  "Прикрепляю мем — проанализируйте контекст и выберите правильное значение ниже 👇": "I'm attaching a meme — analyse the context and choose the right meaning below 👇",
+  "Есть люди рядом с которыми ты меняешься сам того не замечая. Их привычки, настроение, энергия — незаметно \"прилипают\" к тебе просто от постоянного общения. Вот это и есть rub off on — когда что-то (хорошее или не очень) передаётся от одного человека к другому просто через близость, без всяких усилий. Работает и в плюс, и в минус — можно \"заразиться\" чужим энтузиазмом, а можно и дурными привычками 😄 🎬 Смотрим видео — слышим вживую, забираем в копилку 👀": "There are people next to whom you change without noticing. Their habits, mood and energy quietly “stick” to you just from being around them constantly.\nThat's exactly what “rub off on” means — when something (good or not so good) passes from one person to another simply through closeness, with no effort at all.\n\nIt works both ways — you can “catch” someone's enthusiasm, or their bad habits 😄\n\n🎬 We watch the video — hear it live, add it to the collection 👀",
+  "Больше 150 разборов в канале →": "More than 150 breakdowns in the channel →",
+  "Попробовать ещё раз": "Try again",
+  "Подписывайтесь на канал": "Subscribe to the channel",
+  "Открыть канал →": "Open the channel →",
+  "разборов лексики уже в канале": "vocabulary breakdowns already in the channel",
+  "Слова и выражения из видео и фильмов с примерами": "Words and expressions from videos and films, with examples",
+  "Анонсы набора в группы и встреч разговорного клуба": "Announcements of group enrolment and speaking club meetings",
+  "Как говорят на самом деле — без учебной обёртки": "How people really speak — without the textbook wrapping",
+  "Английский · Индивидуально, группы, разговорный клуб": "English · Individual lessons, groups, speaking club",
+  "Видео по теме урока на платформе": "A video for the lesson topic on the platform",
+  "Упражнение: соотнести слова и картинки": "Exercise: match the words with the pictures",
+  "Упражнение: соотнести слова и определения": "Exercise: match the words with the definitions",
+  "Упражнение: вставить слова в предложения": "Exercise: put the words in the right gaps",
+  "Мем: I would listen to you but I don't want your stupidity to rub off on me": "Meme: I would listen to you but I don't want your stupidity to rub off on me",
+};
+</script>
+<script>
+/* ============================================================
    НАСТРОЙКИ САЙТА — редактируйте здесь
    ============================================================ */
+let LANG = (function(){
+  try {
+    const q = new URLSearchParams(location.search).get("lang");
+    if (q === "en" || q === "ru") return q;
+    return localStorage.getItem("lang") === "en" ? "en" : "ru";
+  } catch(e){ return "ru"; }
+})();
+
 const CONFIG = {
   name: "Александр Хлебодаров",         // ваше имя / псевдоним
   heroText: "Индивидуальные занятия, группы и разговорный клуб — выбирайте формат под свою цель и уровень.",
@@ -971,8 +1173,22 @@ const REVIEWS = {
   },
 };
 
+function reviewsFor(tab){
+  const d = REVIEWS[tab];
+  if (LANG !== "en") return d;
+  return {
+    vibes: d.vibes.map(v => VIBE_EN[v] || v),
+    items: d.items.map(r => {
+      const hit = TEXT_EN.find(([pre]) => r.text.startsWith(pre));
+      const tr = hit ? hit[1] : null;
+      return { q: Q_EN[r.q] || r.q, text: tr || r.text, who: (WHO_EN[r.who] || r.who) + (tr ? STR.en.translated : "") };
+    }),
+  };
+}
+
 function renderReviews(){
-  for (const [tab, data] of Object.entries(REVIEWS)) {
+  for (const tab of Object.keys(REVIEWS)) {
+    const data = reviewsFor(tab);
     const vibes = document.getElementById("vibes-" + tab);
     const grid = document.getElementById("reviews-" + tab);
     if (vibes) {
@@ -1005,6 +1221,10 @@ const POLL = [
   { text: "начать нравиться", pct: 9 },
 ];
 
+function getPoll(){
+  return POLL.map((o, i) => ({ ...o, text: LANG === "en" ? POLL_EN[i] : o.text }));
+}
+
 function initPoll(){
   const wrap = document.getElementById("pollOptions");
   const poll = wrap && wrap.closest(".tg-poll");
@@ -1019,7 +1239,7 @@ function initPoll(){
     result.hidden = true; result.className = "poll-result";
     reveal.hidden = true;
     if (video) { video.pause(); video.currentTime = 0; }
-    POLL.forEach((o, i) => {
+    getPoll().forEach((o, i) => {
       const b = document.createElement("button");
       b.type = "button"; b.className = "poll-opt";
       const bar = document.createElement("span"); bar.className = "bar";
@@ -1042,19 +1262,20 @@ function initPoll(){
     poll.classList.add("poll-done");
     const buttons = [...wrap.children];
     buttons.forEach((b, k) => {
-      const o = POLL[k];
+      const o = getPoll()[k];
       b.querySelector(".bar").style.width = o.pct + "%";
       if (o.correct) { b.classList.add("correct"); b.querySelector(".mark").textContent = "✅"; }
       if (k === i && !o.correct) { b.classList.add("wrong"); b.querySelector(".mark").textContent = "❌"; }
     });
     const ok = !!POLL[i].correct;
-    result.textContent = ok ? "Верно! 🎉 Так ответили 80% участников канала." : "Не совсем. Правильный ответ отмечен зелёным — смотрите разбор ниже 👇";
+    result.textContent = ok ? STR[LANG].pollOk : STR[LANG].pollNo;
     result.className = "poll-result " + (ok ? "ok" : "no");
     result.hidden = false;
     reveal.hidden = false;
   }
 
   document.getElementById("pollReset").addEventListener("click", build);
+  window.__pollRebuild = build;
   build();
 }
 
@@ -1068,14 +1289,21 @@ const HERO_IMAGES = {
    ============================================================ */
 
 // подставляем текстовые данные из CONFIG в разметку
-document.querySelectorAll("[data-cfg]").forEach(el => {
-  const key = el.getAttribute("data-cfg");
-  if (CONFIG[key] !== undefined) el.textContent = CONFIG[key];
-});
-document.querySelectorAll("[data-cfg-html]").forEach(el => {
-  const key = el.getAttribute("data-cfg-html");
-  if (CONFIG[key] !== undefined) el.innerHTML = CONFIG[key];
-});
+function cfgVal(key){
+  if (LANG === "en" && CONFIG_EN[key] !== undefined) return CONFIG_EN[key];
+  return CONFIG[key];
+}
+function applyConfig(){
+  document.querySelectorAll("[data-cfg]").forEach(el => {
+    const v = cfgVal(el.getAttribute("data-cfg"));
+    if (v !== undefined) el.textContent = v;
+  });
+  document.querySelectorAll("[data-cfg-html]").forEach(el => {
+    const v = cfgVal(el.getAttribute("data-cfg-html"));
+    if (v !== undefined) el.innerHTML = v;
+  });
+}
+applyConfig();
 document.querySelectorAll("[data-cfg-href]").forEach(el => {
   const key = el.getAttribute("data-cfg-href");
   if (CONFIG[key] !== undefined) el.setAttribute("href", CONFIG[key]);
@@ -1094,8 +1322,8 @@ function updateHeroPhoto(name){
   if (!box || !show) return;
   const src = HERO_IMAGES[name];
   box.innerHTML = src
-    ? `<img src="${src}" alt="${CONFIG.name}">`
-    : `<span>Место для вашей фотографии</span>`;
+    ? `<img src="${src}" alt="${cfgVal("name")}">`
+    : `<span>${STR[LANG].photo}</span>`;
 }
 
 // увеличение скриншотов платформы
@@ -1143,6 +1371,59 @@ if (["about","individual","groups","club","breadtalk","telegram"].includes(initi
 } else {
   updateHeroPhoto("about");
 }
+
+// ===== переключатель языка RU / EN =====
+const ORIG_TITLE = document.title;
+const _md = document.querySelector('meta[name="description"]');
+const ORIG_DESC = _md ? _md.content : "";
+STR.en.title = "English with Aleksandr Khlebodarov";
+STR.en.desc = "Individual and group English lessons, a speaking club and a Telegram channel.";
+
+function normText(t){ return t.replace(/\s+/g, " ").trim(); }
+
+function translateStatic(lang){
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+    acceptNode(n){
+      const p = n.parentElement;
+      if (!p || !/\S/.test(n.nodeValue)) return NodeFilter.FILTER_REJECT;
+      if (p.closest("script,style,#pollOptions,#pollResult,.reviews-grid,.vibe-row,[data-cfg],[data-cfg-html]")) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach(n => {
+    if (n.__ru === undefined) n.__ru = n.nodeValue;
+    if (lang !== "en") { n.nodeValue = n.__ru; return; }
+    const en = DICT[normText(n.__ru)];
+    if (en !== undefined) {
+      const m = n.__ru.match(/^(\s*)[\s\S]*?(\s*)$/);
+      n.nodeValue = m[1] + en + m[2];
+    }
+  });
+  document.querySelectorAll("[alt]").forEach(el => {
+    if (el.__altRu === undefined) el.__altRu = el.getAttribute("alt");
+    const en = DICT[normText(el.__altRu)];
+    el.setAttribute("alt", lang === "en" && en !== undefined ? en : el.__altRu);
+  });
+}
+
+function applyLang(lang){
+  LANG = lang;
+  try { localStorage.setItem("lang", lang); } catch(e){}
+  document.documentElement.lang = lang;
+  applyConfig();
+  renderReviews();
+  if (window.__pollRebuild) window.__pollRebuild();
+  translateStatic(lang);
+  document.title = lang === "en" ? STR.en.title : ORIG_TITLE;
+  if (_md) _md.content = lang === "en" ? STR.en.desc : ORIG_DESC;
+  const active = document.querySelector("section.panel.active");
+  updateHeroPhoto(active ? active.id.replace("tab-", "") : "about");
+  document.getElementById("langToggle").textContent = lang === "en" ? "RU" : "EN";
+}
+document.getElementById("langToggle").addEventListener("click", () => applyLang(LANG === "en" ? "ru" : "en"));
+if (LANG === "en") applyLang("en");
 
 document.getElementById("year").textContent = new Date().getFullYear();
 </script>
